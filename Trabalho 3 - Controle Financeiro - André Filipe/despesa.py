@@ -7,3 +7,5 @@ class Despesa:
         self.descricao = descricao
 
 
+    def __str__(self):
+        return f"Despesa de {self.categoria}, com valor de R$ {self.valor}, registrada no dia {self.data}. Descrição: {self.descricao}."

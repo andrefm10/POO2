@@ -1,12 +1,14 @@
 class Categoria:
-    def __init__(self,nome, despesas):
+    def __init__(self,nome, limite, despesas):
         self.nome = nome
+        self.limite = limite
         self.despesas = despesas
-        self.lista_geral = []
+        
+
+    def __str__(self):
+        despesas_str = "\n".join([str(despesa) for despesa in self.despesas])
+        return f"{despesas_str}"
     
-    def adicionar_lista(self,d):
-        self.lista_geral.append(d)
-    
-    def printar(self):
-        for i in self.lista_geral:
-            print(i)
+    def __repr__(self):
+        return self.__str__()
+   

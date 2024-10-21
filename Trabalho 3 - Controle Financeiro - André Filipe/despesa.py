@@ -8,4 +8,13 @@ class Despesa:
 
 
     def __str__(self):
-        return f"Despesa de {self.categoria}, com valor de R$ {self.valor}, registrada no dia {self.data}. Descrição: {self.descricao}."
+        return f"R$ {self.valor} - registrada no dia {self.data} - Descrição: {self.descricao};"
+    
+    def __repr__(self):
+        return self.__str__()
+    
+    def get_valor(self):
+        return self.valor
+    
+    def get_categoria(self):
+        return self.categoria

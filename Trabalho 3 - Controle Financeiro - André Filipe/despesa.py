@@ -18,3 +18,6 @@ class Despesa:
     
     def get_categoria(self):
         return self.categoria
+    
+    def get_data(self):
+        return self.data

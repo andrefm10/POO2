@@ -55,29 +55,29 @@ class CriadorPDF:
         pdf.output(nome_arquivo)
         print(f"Relatório salvo como '{nome_arquivo}'")
         
-def gerar_relatorio_pdf_por_data(self, data_especifica, nome_arquivo):
-    
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", "B", 16)
-    pdf.cell(200, 10, txt=f"Relatório de Despesas - {data_especifica}", ln=True, align="C")
-    
-    
-    mes = datetime.strptime(data_especifica, "%m/%Y").month
-    ano = datetime.strptime(data_especifica, "%m/%Y").year
+    def gerar_pdf_data(self, data_especifica, nome_arquivo):
+        
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", "B", 16)
+        pdf.cell(200, 10, txt=f"Relatório de Despesas - {data_especifica}", ln=True, align="C")
+        
+        
+        mes = datetime.strptime(data_especifica, "%m/%Y").month
+        ano = datetime.strptime(data_especifica, "%m/%Y").year
 
-    
-    for cat, categoria_obj in self.categorias.items():
-        despesas_mes = [d for d in categoria_obj.despesas 
-                        if datetime.strptime(d.data, "%d/%m/%Y").month == mes and 
-                           datetime.strptime(d.data, "%d/%m/%Y").year == ano]
+        
+        for cat, categoria_obj in self.controle.categorias.items():
+            despesas_mes = [d for d in categoria_obj.despesas 
+                            if datetime.strptime(d.data, "%d/%m/%Y").month == mes and 
+                            datetime.strptime(d.data, "%d/%m/%Y").year == ano]
 
-        if not despesas_mes:
+            '''if not despesas_mes:
+                
+                pdf.set_font("Arial", "B", 12)
+                pdf.cell(200, 10, txt=f"Categoria: {cat} - Não há despesas cadastradas para {data_especifica}.", ln=True)'''
             
-            pdf.set_font("Arial", "B", 12)
-            pdf.cell(200, 10, txt=f"Categoria: {cat} - Não há despesas cadastradas para {data_especifica}.", ln=True)
-        else:
-           
+            
             pdf.set_font("Arial", "B", 12)
             pdf.cell(200, 10, txt=f"Categoria: {cat}", ln=True)
             pdf.set_font("Arial", "", 12)
@@ -85,12 +85,12 @@ def gerar_relatorio_pdf_por_data(self, data_especifica, nome_arquivo):
             for d in despesas_mes:
                 pdf.cell(200, 10, txt=str(d), ln=True)
 
-            
+                
             total_mes = sum([d.get_valor() for d in despesas_mes])
             pdf.set_font("Arial", "B", 12)
             pdf.cell(200, 10, txt=f"Total de despesas para {cat} em {data_especifica}: R$ {total_mes:.2f}", ln=True)
             pdf.ln(10)
 
-    
-    pdf.output(nome_arquivo)
-    print(f"Relatório gerado: {nome_arquivo}")
+        
+        pdf.output(nome_arquivo)
+        print(f"Relatório gerado: {nome_arquivo}")

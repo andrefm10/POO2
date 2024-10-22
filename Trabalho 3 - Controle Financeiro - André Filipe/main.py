@@ -9,11 +9,12 @@ controle = ControleFinanceiro({})
 while True:
     print("\nBem vindo ao sistema de controle financeiro, escolha uma opção:")
     print("1-Registrar despesa")
-    print("2-Relatório por categorias")
+    print("2-Relatório geral por categorias")
     print("3-Checar aumentos significativos")
-    print("4-Gerar relatório em PDF")
+    print("4-Gerar relatório geral em PDF")
     print("5-Relatório mensal")
-    print("6-Encerrar programa")
+    print("6-Gerar relatório mensal em PDF")
+    print("7-Encerrar programa")
     op = int(input())
 
     match op:
@@ -111,9 +112,17 @@ while True:
             print()
             controle.gerar_relatorio_terminal_por_data("Entretenimento",datae)
 
-            
-        
         case 6:
+            res = input("Realmente deseja criar o relatório em PDF? Ele será baixado no seu sistema. (S ou N)").upper()
+            if res == "S":
+                datae = input("Digite um mês de um ano para analisar seu relatório(formato mm/aaaa): ")
+                pdf = CriadorPDF(controle)
+                pdf.gerar_pdf_data(datae,input("Digite o nome desejado pro arquivo(final .pdf): "))
+            else:
+                print("Entendido. Voltando para o menu.")
+                
+        
+        case 7:
             print("O programa será encerrado.")
             break
 
